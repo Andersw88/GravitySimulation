@@ -50,7 +50,7 @@ extern int iNPlanets;
 #define TIME_STEP ( 1.0 / 0x10000000 )
 
 #elif LOGL2
-#define G (1.0 / 128)
+#define G (1.0 / 128.0)
 #define TIME_STEP ( 1.0 / 0x1000000000 )
 
 #else

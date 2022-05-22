@@ -338,3 +338,8 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/GravitySimulation/libwebp-7.dll
+/GravitySimulation/libtiff-5.dll
+/GravitySimulation/libpng16-16.dll
+/GravitySimulation/libjpeg-9.dll
+*.dll

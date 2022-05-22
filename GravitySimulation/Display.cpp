@@ -58,7 +58,7 @@ int Display::fRender()
 #endif
 		SDL_Delay( FRAMEDELAY );
 
-		EnterCriticalSection(&CriticalSection);
+		//EnterCriticalSection(&CriticalSection);
 #if LOGL4
 		pLagrange->position = pPlanet->position;		// L4
 		pLagrange->position.Rotate(pi2 * -60 / 360);
@@ -67,7 +67,7 @@ int Display::fRender()
 		pLagrange->position = pPlanet->position;
 		pLagrange->position.Extend(pLagrange->dL2Dist);
 #endif
-		LeaveCriticalSection(&CriticalSection);
+		//LeaveCriticalSection(&CriticalSection);
 
 		// render all new stuff
 		for (auto& planet : game->universe.planets) {

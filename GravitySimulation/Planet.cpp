@@ -38,6 +38,8 @@ void Planet::updateVelocity(std::vector<Planet*>& others)
 //	this->acceleration = Vector();
 	Vector acceleration;
 
+	double timeStepG = G * TIME_STEP;
+
 	for (int i = 0; i < iNPlanets; i++)
 	{
 		Planet* other = others[i];
@@ -46,21 +48,20 @@ void Planet::updateVelocity(std::vector<Planet*>& others)
 		if (other == this ) continue;
 
 		Vector posV;
-		posV.x = other->position.x - this->position.x;
-		posV.y = other->position.y - this->position.y;
-//		Vector posV = other->position - this->position;		// bug when use inline( release )
-//		Had problems with inlining here /Ob2. 
-//		printf("%g %g %i %i\n", posV.x, posV.y, this->iNr, other->iNr);
-//		printf("%g %g %g %g\n", this->position.x, this->position.y, other->position.x, other->position.y);
+		posV.x = (other->position.x - this->position.x);
+		posV.y = (other->position.y - this->position.y);
 
-		double distance2 = ((position.x - other->position.x) * (position.x - other->position.x) +
-			(position.y - other->position.y ) * (position.y - other->position.y ));
+		double distance2 = (posV.x * posV.x) + (posV.y * posV.y);
+		double distance = sqrt(distance2);
+		acceleration += posV * (other->mass * timeStepG / (distance2 * distance));
+		
+		// A bit faster but loses more precision.
+		//Vector posV2;
+		//posV2.x = (other.position.x - this->position.x);
+		//posV2.y = (other.position.y - this->position.y);
 
-		double distance = sqrt( distance2);
-		Vector mag = posV / distance;
-
-//		this->acceleration += mag * other->mass * G / distance2 * TIME_STEP;
-		acceleration += mag * other->mass * G / distance2 * TIME_STEP;
+		//double distance3 = std::abs(posV2.x * posV2.x * posV2.x) + std::abs(posV2.y * posV2.y * posV2.y);
+		//acceleration += posV2 * (other.mass * timeStepG / (distance3));
 	}
 
 	this->velocity += acceleration;
@@ -69,9 +70,9 @@ void Planet::updateVelocity(std::vector<Planet*>& others)
 
 void Planet::updatePosition()
 {
-	EnterCriticalSection(&CriticalSection);
+	//EnterCriticalSection(&CriticalSection);
 	this->position += this->velocity;
-	LeaveCriticalSection(&CriticalSection);
+	//LeaveCriticalSection(&CriticalSection);
 }
 
 // Render one planet
