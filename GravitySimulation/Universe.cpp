@@ -32,7 +32,11 @@ void Universe::MomentumAdjust()
 
 	for (auto& planet : planets) {
 		dMyMassQ = planet->mass / dTotalMass;
-		Vector VelocityAdjust = TotMomentum / (dMyMassQ * dTotalMass);
+
+		// This is probably a bug?
+		TotMomentum = TotMomentum / (dMyMassQ * dTotalMass);
+
+		Vector VelocityAdjust = TotMomentum; // TotMomentum / (dMyMassQ * dTotalMass);
 		planet->velocity -= VelocityAdjust;
 	}
 }

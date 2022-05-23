@@ -64,26 +64,24 @@ Vector& Vector::Extend(const double& dLen)
 	return *this;
 }
 
-
-
-Vector operator+(Vector vec1, const Vector vec2)
+Vector operator+(const Vector& vec1, const Vector& vec2)
 {
-	return vec1.Add(vec2);
+	return { vec1.x + vec2.x, vec1.y + vec2.y };
 }
 
-Vector operator-(Vector vec1, const Vector vec2)
+Vector operator-(const Vector& vec1, const Vector& vec2)
 {
-	return vec1.Substract(vec2);
+	return { vec1.x - vec2.x, vec1.y - vec2.y };
 }
 
-Vector operator*(Vector vec1, const Vector vec2)
+Vector operator*(const Vector& vec1, const Vector& vec2)
 {
-	return vec1.Multiply(vec2);
+	return { vec1.x * vec2.x, vec1.y * vec2.y };
 }
 
-Vector operator/(Vector vec1, const Vector vec2)
+Vector operator/(const Vector& vec1, const Vector& vec2)
 {
-	return vec1.Divide(vec2);
+	return { vec1.x / vec2.x, vec1.y / vec2.y };
 }
 
 Vector& Vector::operator+=(const Vector vec)
@@ -106,20 +104,14 @@ Vector& Vector::operator/=(const Vector vec)
 	return this->Divide(vec);
 }
 
-Vector& Vector::operator/(const double& i)
+Vector Vector::operator/(const double& i)
 {
-	this->x /= i;
-	this->y /= i;
-
-	return *this;
+	return { this->x / i, this->y / i };
 }
 
-Vector& Vector::operator*(const double& i)
+Vector Vector::operator*(const double& i)
 {
-	this->x *= i;
-	this->y *= i;
-
-	return *this;
+	return { this->x * i, this->y * i };
 }
 
 Vector& Vector::Zero()
